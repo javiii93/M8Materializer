@@ -21,35 +21,46 @@ var app = {
     initialize: function() {
      document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
     document.addEventListener('DOMContentLoaded', function() {
-   // var elems = document.querySelectorAll('.collapsible');
-    //var instances = M.Collapsible.init(elems, options);
       var elems = document.querySelectorAll('.sidenav');
     var instances = M.Sidenav.init(elems, options);
+    var elems1 = document.querySelectorAll('.autocomplete');
+    var instances1 = M.Autocomplete.init(elems1, options);
+  
+
   });
-    },
-
-    // deviceready Event Handler
-    //
-    // Bind any cordova events here. Common events are:
-    // 'pause', 'resume', etc.
-    onDeviceReady: function() {
-        this.receivedEvent('deviceready');
-    },
-
-
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
     }
+      
 };
-     $(document).ready(function(){
-    $('.sidenav').sidenav();
-  });
+
+// Sort function for sorting autocomplete results
+  function entrada(a, b, inputString) {
+    return a.indexOf(inputString) - b.indexOf(inputString);
+  }
+
+function myFunction1() {
+  console.log('Boton clicado');   // The function returns the product of p1 and p2
+var texto=$("#inputtext").val();
+//var instance = M.Autocomplete.getInstance(elems1).val;
+console.log(texto);
+$.ajax({
+  method: "GET",
+  url: "https://musicbrainz.org/ws/2/artist?query=" + texto,
+  dataType: "json",   // necessitem això pq ens retorni un objecte JSON
+}).done(function (msg) {
+  for(var item in msg.artists) {
+    console.log(msg.artists[item]);
+    // aquí caldría fer mes coses, of course...
+    // ...
+  };
+}).fail(function () {
+  alert("ERROR");
+});
+}
+
+
+
+$(document).ready( function ()  {
+    // initialize
+    $('#button1').click(myFunction1);
+});
 app.initialize();
