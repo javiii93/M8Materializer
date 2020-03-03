@@ -39,6 +39,7 @@ var app = {
 
 function myFunction1() {
   console.log('Boton clicado');   // The function returns the product of p1 and p2
+
 var texto=$("#inputtext").val();
 //var instance = M.Autocomplete.getInstance(elems1).val;
 console.log(texto);
@@ -47,8 +48,15 @@ $.ajax({
   url: "https://musicbrainz.org/ws/2/artist?query=" + texto,
   dataType: "json",   // necessitem això pq ens retorni un objecte JSON
 }).done(function (msg) {
+  var elemenList;
+   $("#show-information").empty();
   for(var item in msg.artists) {
     console.log(msg.artists[item]);
+    elemenList=$("<li>Nom: "+JSON.stringify(msg.artists[item].name)+", Pais: "+ JSON.stringify(msg.artists[item].country)+", Sexe: "+ JSON.stringify(msg.artists[item].gender) + "</li>");
+    
+  $("#show-information").append(elemenList);
+    
+   // $("#show-information").html("fasdfds");
     // aquí caldría fer mes coses, of course...
     // ...
   };
